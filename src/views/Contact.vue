@@ -16,7 +16,6 @@
       :data-source="contact.contacts"
     >
       <div slot="first_name" slot-scope="text, record" class="cs">
-        <!--        {{ record }}-->
         <dl>
           <dt>Имя:</dt>
           <dd>{{ record.first_name }} {{ record.last_name }}</dd>

@@ -24,7 +24,13 @@
       <div slot="status" slot-scope="text">
         <a-tag style="color: #000" :color="text.color">{{ text.name }}</a-tag>
       </div>
-      <div slot="user" slot-scope="text">{{ text[0] }} {{ text }}</div>
+      <div slot="user" slot-scope="text">
+        <a-avatar
+          src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+        />
+
+        {{ text }}
+      </div>
       <div slot="price" slot-scope="text">
         {{ text.toLocaleString() }}
       </div>
