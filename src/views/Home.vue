@@ -1,3 +1,4 @@
+<!--TODO можно ли в vue писать jsx стилем?-->
 <template>
   <a-card title="Тестовое задание" style="text-align: left">
     <div slot="extra">
@@ -21,8 +22,12 @@
           {{ text }}
         </div>
       </template>
-      <div slot="status" slot-scope="text">
-        <a-tag style="color: #000" :color="text.color">{{ text.name }}</a-tag>
+      <div slot="status" slot-scope="text, record">
+        <span v-for="p in record.pipeline.statuses">
+          <template v-if="record.status_id === p.id">
+            <a-tag style="color: #000" :color="p.color">{{ p.name }}</a-tag>
+          </template>
+        </span>
       </div>
       <div slot="user" slot-scope="text">
         <a-avatar
@@ -50,7 +55,15 @@ import { Debounce } from 'vue-debounce-decorator';
 require('moment/locale/ru');
 moment.locale('ru');
 
-@Component({})
+@Component({
+  filters: {
+    capitalize: function (value: string) {
+      if (!value) return '';
+      value = value.toString();
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    },
+  },
+})
 export default class Home extends Vue {
   leads: unknown[] = [];
   message = '';

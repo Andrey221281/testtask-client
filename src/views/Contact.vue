@@ -15,10 +15,10 @@
       :columns="columns"
       :data-source="contact.contacts"
     >
-      <div slot="first_name" slot-scope="text, record" class="cs">
+      <div slot="name" slot-scope="text, record" class="cs">
         <dl>
           <dt>Имя:</dt>
-          <dd>{{ record.first_name }} {{ record.last_name }}</dd>
+          <dd>{{ record.name }}</dd>
         </dl>
 
         <dl v-for="f in record.custom_fields_values" :key="f.id">
@@ -44,18 +44,21 @@ export default class Contacts extends Vue {
   columns = [
     {
       title: 'Контакт',
-      dataIndex: 'first_name',
-      key: 'first_name',
-      scopedSlots: { customRender: 'first_name' },
+      dataIndex: 'name',
+      key: 'name',
+      scopedSlots: { customRender: 'name' },
     },
   ];
 
-  mounted(): void {
+  created(): void {
     this.loading = true;
     const id = parseInt(this.$route.params.id);
     axios
       .get(`http://localhost:3000/leads/${id}`)
-      .then(({ data }) => (this.contact = { ...data }))
+      .then(({ data }) => {
+        console.log(data);
+        this.contact = { ...data };
+      })
       .finally(() => (this.loading = false));
   }
 
